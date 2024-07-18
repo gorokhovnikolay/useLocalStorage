@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useLocalStorage } from './hooks/useLocalStorage'
+import './App.css'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [token, { setItem, removeItem }] = useLocalStorage('token')
+    return (
+        <div className='App'>
+            <header className='App-header'>
+                <div>
+                    <p>Твой токен: {token}</p>
+                    <div>
+                        <button onClick={() => setItem('new-token')}>Задать токен</button>
+                        <button onClick={() => removeItem()}>Удалить токен</button>
+                    </div>
+                </div>
+            </header>
+        </div>
+    )
 }
 
-export default App;
+export default App
