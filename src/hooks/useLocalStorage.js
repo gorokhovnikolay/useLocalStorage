@@ -1,16 +1,18 @@
 import { useState } from 'react'
 
-export const useLocalStorage = (defaultTocken) => {
+export function useLocalStorage(defaultTocken) {
     const [token, setToken] = useState(defaultTocken)
 
-    const setItem = (newToken) => {
-        localStorage.setItem(newToken, '')
-        setToken(newToken)
-    }
-    const removeItem = () => {
-        localStorage.removeItem(token)
-        setItem('')
+    const ls = {
+        setItem(newToken) {
+            localStorage.setItem(newToken, '')
+            setToken(newToken)
+        },
+        removeItem() {
+            localStorage.removeItem(token)
+            this.setItem('')
+        },
     }
 
-    return [token, { setItem, removeItem }]
+    return { token, ls }
 }
